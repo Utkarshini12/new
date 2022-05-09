@@ -26,7 +26,7 @@ function Login() {
         axios.post(BASE_URL + '/api/v1/user/login', data)
         .then(
             function(response) {
-                if(response.status == 200) {
+                if(response.status === 200) {
                     localStorage.setItem("username", response.data.username);
                     localStorage.setItem("userId", response.data.id);
                     localStorage.setItem("token", response.data.accessToken);
