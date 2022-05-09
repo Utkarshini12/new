@@ -1,46 +1,23 @@
 import {Link} from 'react-router-dom';
 import {useState} from 'react';
-import axios from 'axios';
+
 import '../styles/login.css';
 
-const BASE_URL = 'http://13.235.87.215:4000';
+
 
 
 function Login() {
     const [showSignup, setShowSignup] = useState(false); 
-    const [message, setMessage] = useState('');
+console.log(showSignup);
+   
 
     const toggleSignup =() => {
         setShowSignup(!showSignup);
     }
 
-    function loginFn() {
-        const username = document.getElementById("username");
-        const password = document.getElementById("password");
-        setMessage('');
-        const data = {
-            username: username.value,
-            password: password.value
-        }
 
-        axios.post(BASE_URL + '/api/v1/user/login', data)
-        .then(
-            function(response) {
-                if(response.status == 200) {
-                    localStorage.setItem("username", response.data.username);
-                    localStorage.setItem("userId", response.data.id);
-                    localStorage.setItem("token", response.data.accessToken);
-
-                } else{
-                    setMessage("invalid username or password")
-                }
-            }
-        ).catch(function(error) {
-            setMessage(error.response.data.message);
-        })
-
-
-    }
+    
+    
 
 
 
@@ -75,10 +52,12 @@ function Login() {
                                         <input type="password"  id="password" placeholder="password" className='form-control' />
                                     </div>
                                     <div className="input-group">
-                                        <input type="submit" value="Log in as User" className='btn btn-primary form-control' onClick={loginFn}/>
+                                        {/* <button className='btn btn-primary form-control'>Log in as User</button> */}
+                                        <Link to="/home" className='btn btn-primary form-control'>Log in as user</Link>
+                                        {/* <input type="submit" value="Log in as User" className='btn btn-primary form-control' /> */}
                                     </div>
                                     <div className="text-center text-info" onClick={toggleSignup}>Dont have an account? Signup</div>
-                                    <div className="text-danger text-center">{message}</div>
+                                
                                 </div>
 
                             ) : (
@@ -98,7 +77,7 @@ function Login() {
                                     <input type="submit" value="Signup in as User" className='btn btn-primary form-control' />
                                 </div>
                                 <div className="text-center text-info" onClick={toggleSignup}>Already have an account? Signup</div>
-                                <div className="text-danger text-center">{message}</div>
+                              
                             </div>
 
                             )
